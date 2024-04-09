@@ -28,7 +28,7 @@ const taskManager = {
     },
     // creating a function for completing the task
     completeTask: function completeTask (){
-        const taskID = parseInt(prompt("Please enter a task ID to mark it as completed: "));
+        const taskID = parseInt(prompt(`Here is the list of all of your tasks: ${JSON.stringify(this.tasks)}. \n Please enter a task ID to mark it as completed: `));
         // checking taskID if it is not a number. 
         if (isNaN(taskID)){
             alert(`Please enter a valid task ID! ${taskID} can only be numbers!`);
@@ -47,6 +47,7 @@ const taskManager = {
     },
     //creating a function to list all the tasks
     allTasks: function listAllTasks (listAll){
+        //converting the values to string
         console.log(`Listing all the tasks: ${JSON.stringify(this.tasks)}`);
         alert(JSON.stringify(this.tasks));
     },
@@ -54,6 +55,7 @@ const taskManager = {
     completedTasks: function listCompletedTasks(){
         //an empty array for completed tasks
         let allCompletedTasks = [];
+        //Go through all the tasks and add those with the completed status allCompletedTasks array.
         let i = 0;
         while(i < this.tasks.length){
             const task = this.tasks[i];
@@ -65,8 +67,8 @@ const taskManager = {
         console.log(`Listing all the completed tasks: ${JSON.stringify(allCompletedTasks)}`);
         alert(JSON.stringify(allCompletedTasks));
     }
-  };
-  
+};
+//End of the object  
 
 //Menu function to show the user his/her choices    
 function menu(){
@@ -92,20 +94,21 @@ function menu(){
                 console.log('Exiting the task Manager.');
                 return;
             default:
-                console.log('The number you entered is invalid. Please enter a number between 1 and 5.');
+                alert('The number you entered is invalid. Please enter a number between 1 and 5.');
                 
         }
     }
 }
-
+//creating a function to ask user name
 function askUserName(){ 
-    const userName = prompt("Please enter your name:");
-    if (typeof userName !== 'number' && userName !== null){
+    const userName = prompt("Please enter your name: ");
+    if (userName.length >= 2 && userName !== null){
         console.log(`Welcome ${userName}!`);
+        //alert(`Welcome ${userName}!`);
         return userName;
         //menu();
     } else{
-      alert("The entry is invalid. Please enter your name!");
+      alert("The entry is invalid. Please enter your name! Your name should have at least 2 characters.");
       askUserName();
     }
 }
