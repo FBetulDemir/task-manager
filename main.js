@@ -4,18 +4,26 @@ const taskManager = {
     tasks: [], 
     //function for adding new tasks
     addTask: function addNewTask(taskDescription){
-        taskDescription = parseInt(prompt("Please enter a description for the new task to be added: "));
-        if(typeof taskDescription !== "string"){
-            return ('Please enter a valid description!');
-            addNewTask();
+        taskDescription = prompt("Please enter a description for the new task to be added: ");
+        // checking if the type of description typed by the user is relevant.
+        console.log("Task Description: ", taskDescription);
+        console.log("Task Description: ", typeof taskDescription);
+        //checking if the description is a number or not or the typed charachter is 0 or if it is a null
+        if(!isNaN(parseInt(taskDescription)) || taskDescription.length === 0 || taskDescription === null){
+            //if it is any of the conditions given above, it is an invalid description
+            alert ('Please enter a valid description!');
+            this.addTask();
         } else{
+            //otherwise, I want to save the task
             const task = {
                 id: this.tasks.length + 1,
                 description: taskDescription,
                 completed: false
             };
+            //Adding the task to the empty array created on the top
             this.tasks.push(task);
-            console.log(`Your ${taskDescription} is added to the list.`)
+            console.log(`Your ${taskDescription} is added to the list with ${this.id} and ${task.completed}.`);
+            console.log(this.tasks);
         }
     },
     completeTask: function completeTask (taskID){
@@ -24,7 +32,7 @@ const taskManager = {
             task.completed = true;
             console.log('The task is registered as completed.')
         } else {
-            console.log ('Please enter a valid task id! ${taskID} cannot be found!')
+            console.log (`Please enter a valid task id! ${taskID} cannot be found!`)
         }
     },
     allTasks: function listAllTasks (listAll){
@@ -70,12 +78,13 @@ function menu(){
   
     menuOptions = parseInt(prompt('Menu: \n 1. Please enter 1 to add a task \n 2. Please enter 2 to complete a task \n 3. Please enter 3 to list all the tasks \n 4. Please enter 4 to list all the completed tasks \n 5. Please enter 5 to exit the task manager \n Please enter the right number :'));
 }
-const userName = askUserName (); 
+
 function askUserName(){ 
-    return prompt("Please enter your name:");
-    if (typeof userName === "string"){
+    const userName = prompt("Please enter your name:");
+    if (typeof userName !== 'number' && userName !== null){
         console.log(`Welcome ${userName}!`);
-        menu();
+        return userName;
+        //menu();
     } else{
       alert("The entry is invalid. Please enter your name!");
       askUserName();
